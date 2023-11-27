@@ -1,0 +1,112 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+struct Employee {
+    string employee_id;
+    string name;
+    string position;
+    double salary;
+};
+
+// Hàm thêm nhân viên mới
+void addEmployee(vector<Employee>& employees) {
+    Employee newEmployee;
+    cout << "Nhập mã nhân viên: ";
+    cin >> newEmployee.employee_id;
+    cout << "Nhập tên nhân viên: ";
+    cin.ignore();
+    getline(cin, newEmployee.name);
+    cout << "Nhập chức vụ: ";
+    getline(cin, newEmployee.position);
+    cout << "Nhập lương: ";
+    cin >> newEmployee.salary;
+
+    employees.push_back(newEmployee);
+    cout << "Thêm nhân viên thành công!" << endl;
+}
+
+// Hàm xóa nhân viên
+void deleteEmployee(vector<Employee>& employees) {
+    string employeeId;
+    cout << "Nhập mã nhân viên cần xóa: ";
+    cin >> employeeId;
+
+    for (auto it = employees.begin(); it != employees.end(); ++it) {
+        if (it->employee_id == employeeId) {
+            employees.erase(it);
+            cout << "Xóa nhân viên thành công!" << endl;
+            return;
+        }
+    }
+
+    cout << "Không tìm thấy nhân viên có mã " << employeeId << endl;
+}
+
+// Hàm hiển thị danh sách nhân viên
+void displayEmployees(const vector<Employee>& employees) {
+    if (employees.empty()) {
+        cout << "Danh sách nhân viên rỗng." << endl;
+        return;
+    }
+
+    cout << "Danh sách nhân viên:" << endl;
+    for (const auto& employee : employees) {
+        cout << "Mã nhân viên: " << employee.employee_id << endl;
+        cout << "Tên nhân viên: " << employee.name << endl;
+        cout << "Chức vụ: " << employee.position << endl;
+        cout << "Lương: " << employee.salary << endl;
+        cout << "---------------------------" << endl;
+    }
+}
+
+// Hàm sắp xếp danh sách nhân viên theo tên
+void sortEmployeesByName(vector<Employee>& employees) {
+    sort(employees.begin(), employees.end(), [](const Employee& emp1, const Employee& emp2) {
+        return emp1.name < emp2.name;
+    });
+
+    cout << "Đã sắp xếp danh sách nhân viên theo tên." << endl;
+}
+
+int main() {
+    vector<Employee> employees;
+    int choice;
+
+    while (true) {
+        cout << "----- Quản lý nhân sự -----" << endl;
+        cout << "1. Thêm nhân viên" << endl;
+        cout << "2. Xóa nhân viên" << endl;
+        cout << "3. Hiển thị danh sách nhân viên" << endl;
+        cout << "4. Sắp xếp danh sách nhân viên theo tên" << endl;
+        cout << "0. Thoát chương trình" << endl;
+        cout << "Nhập lựa chọn: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                addEmployee(employees);
+                break;
+            case 2:
+                deleteEmployee(employees);
+                break;
+            case 3:
+                displayEmployees(employees);
+                break;
+            case 4:
+                sortEmployeesByName(employees);
+                break;
+            case 0:
+                cout << "Chương trình kết thúc." << endl;
+                return 0;
+            default:
+                cout << "Lựa chọn không hợp lệ." << endl;
+        }
+
+        cout << endl;
+    }
+
+    return 0;
+}

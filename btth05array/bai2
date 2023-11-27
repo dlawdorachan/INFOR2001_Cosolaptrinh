@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <string.h>
+
+struct Students {
+    char name[50];
+    int number;
+    float score;
+};
+
+struct Students listStudents[100];
+int quantity = 0;
+
+struct Students inputStudents() {
+    struct Students stu;
+    printf("\nNhap ten sinh vien: ");
+    fflush(stdin);
+    gets(stu.name);
+    printf("Nhap ma so sinh vien: ");
+    scanf("%d", &stu.number);
+    printf("Nhap diem sinh vien: ");
+    scanf("%f", &stu.score);
+    return stu;
+}
+
+void displayStudents(struct Students stu) {
+    printf("\nThong tin sinh vien:\n");
+    printf("Ten: %s\n", stu.name);
+    printf("Ma so: %d\n", stu.number);
+    printf("Diem: %f\n", stu.score);
+}
+
+void arrangeName() {
+    struct Students temp;
+    for (int i = 0; i < quantity - 1; i++) {
+        for (int j = i + 1; j < quantity; j++) {
+            if (strcmp(listStudents[i].name, listStudents[j].name) > 0) {
+                temp = listStudents[i];
+                listStudents[i] = listStudents[j];
+                listStudents[j] = temp;
+            }
+        }
+    }
+}
+case 5:
+arrangeNumber();
+printf("Da sap xep danh sach theo ma so.\n");
+break;
+case 0:
+printf("Thoat chuong trinh.\n");
+break;
+default:
+printf("Lua chon khong hop le, vui long chon lai.\n");
+}
+} while (List != 0);
+
+return 0;
+}
